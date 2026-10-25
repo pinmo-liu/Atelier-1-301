@@ -129,9 +129,6 @@ you need a real public URL.
 
 **HTTPS is required** for the motion sensors.
 
-Once you have the URL, `make-qr.html` renders it as a QR image for the PDF —
-edit the URL at the top, or append `?u=<your-url>`.
-
 ---
 
 ## How it behaves
@@ -177,8 +174,7 @@ my own reader decoded happily — so it looked correct — but that zxing-cpp
 refused, while accepting python-qrcode's output for the same string at the same
 scale. Encoder and reader shared the same wrong assumption, so testing one
 against the other proved nothing. That is moot now: `showDesktopQr()` from
-p5-phone does the QR, and `make-qr.html` builds the PDF image with
-`qrcode-generator`.
+p5-phone draws the QR code.
 
 **Voice was left out on purpose.** `getUserMedia` needs HTTPS, an explicit
 prompt and a quiet room. Too fragile for a live demo.
