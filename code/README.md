@@ -22,8 +22,9 @@ Built with **p5.js 2.x + p5-phone**, the same stack as
 |---|---|
 | `sketch.js` | the whole sketch |
 | `index.html` | loads p5.js 2.x and p5-phone, then `sketch.js` |
-| `make-qr.html` | optional: renders one QR at 10 px/module as an image for the PDF |
-| `qr-code.png` | an example export from that page |
+
+The deployed sketch runs on the p5.js Web Editor:
+https://editor.p5js.org/pinmo-liu/sketches/yFXMcohUX
 
 ---
 
@@ -68,21 +69,20 @@ Two things tell the person what will be read, at two different moments:
 
 ---
 
-## Before you run it — 2 things to set
+## The survey link
 
-**1. Paste your survey link** (near the top of `sketch.js`):
+The survey is already set in `sketch.js`:
 
 ```js
-let SURVEY_URL = 'https://forms.office.com/r/REPLACE-ME';
+let SURVEY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd22KkCZR0jDiyfum09XB0sS4w4hgihSKz1L37KR1a0BJR4vw/viewform';
 ```
 
 Any survey URL works. The point of the demo is the **unlock**, not the survey.
 
-**2. Optional tuning** (same block):
+**Optional tuning** (same block):
 
 ```js
-const SEQ_MIN = 3;   // actions per run
-const SEQ_MAX = 4;
+const STEPS = 5;   // actions per run
 ```
 
 ---
