@@ -1,0 +1,3 @@
+# Phase-two concept, revised (draft — you must rewrite in your own words)
+
+My plan for Phase 2 never changed — a public terminal, QR-code entry, and several phones on a local network opening the same survey — but the testing changed how I will build it. The tester found three actions too short, so the group version needs sequences with real weight; the sensor request has to happen once at the start, which matters even more when several people each need it; and the instructions have to be readable by onlookers, not only the person holding the phone. I also want to bring in more kinds of sensor — a microphone, for example — so a voice or a clap could become one of the actions.
