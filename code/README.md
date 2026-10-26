@@ -24,7 +24,7 @@ Built with **p5.js 2.x + p5-phone**, the same stack as
 | `index.html` | loads p5.js 2.x and p5-phone, then `sketch.js` |
 
 The deployed sketch runs on the p5.js Web Editor:
-https://editor.p5js.org/pinmo-liu/sketches/yFXMcohUX
+https://editor.p5js.org/stormyrain.liu/full/am7Kaches
 
 ---
 
