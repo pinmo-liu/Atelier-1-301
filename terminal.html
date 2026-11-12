@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminal — Phone as a Key</title>
+
+  <!-- QR generator (Kazuhiko Arase, same library the examples use) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+
+  <style>
+    :root {
+      --ink: #f2f2f2;
+      --dim: #8d8d8d;
+      --green: #1ec878;
+      --amber: #e0a63c;
+      --bg: #111;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      background: var(--bg); color: var(--ink);
+      font-family: Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      -webkit-user-select: none; user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* the whole screen is the host's button */
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center;
+           padding: 3vmin; text-align: center; cursor: pointer; }
+
+    #top { width: 100%; max-width: 900px; }
+
+    #count {
+      font-size: clamp(15px, 2.4vmin, 26px);
+      color: var(--dim);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.2vmin;
+    }
+    #count b {
+      color: var(--ink);
+      font-size: 1.25em;
+    }
+
+    #track {
+      width: 100%; height: 6px; border-radius: 3px;
+      background: #2a2a2a; overflow: hidden; margin-bottom: 4vmin;
+    }
+    #bar { height: 100%; width: 100%; background: var(--green); transition: width .4s linear; }
+
+    #phase {
+      font-size: clamp(34px, 8vmin, 96px);
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin: 0 0 3vmin;
+    }
+    body[data-phase="verifying"] #phase { color: var(--amber); }
+    body[data-phase="verified"]  #phase { color: var(--green); }
+
+    #qr {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 34vmin;
+      margin-bottom: 3vmin;
+    }
+    #qr img {
+      width: clamp(200px, 34vmin, 420px);
+      height: auto;
+      background: #fff; padding: 10px; border-radius: 12px;
+      image-rendering: pixelated;
+    }
+    body[data-phase="verifying"] #qr,
+    body[data-phase="verified"]  #qr {
+      font-size: clamp(40px, 12vmin, 140px); color: var(--dim);
+    }
+
+    #sequence {
+      font-size: clamp(15px, 2.6vmin, 30px);
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      min-height: 3vmin;
+      margin-bottom: 2.4vmin;
+    }
+
+    #hint {
+      font-size: clamp(13px, 1.9vmin, 21px);
+      color: var(--dim);
+      max-width: 70ch;
+      margin: 0 auto 4vmin;
+      line-height: 1.5;
+    }
+
+    #actions {
+      display: flex; gap: 2vmin; justify-content: center; align-items: center;
+      flex-wrap: wrap;
+    }
+    #action {
+      display: inline-block;
+      padding: 1.6vmin 5vmin;
+      border-radius: 999px;
+      background: var(--green);
+      color: #0a0a0a;
+      font-weight: bold;
+      font-size: clamp(16px, 2.6vmin, 30px);
+      letter-spacing: 0.08em;
+    }
+    body[data-phase="verifying"] #action { background: var(--amber); }
+
+    /* the secondary choice, only on the verified screen */
+    #action2 {
+      display: none;
+      padding: 1.4vmin 3.6vmin;
+      border-radius: 999px;
+      border: 2px solid #4a4a4a;
+      color: #9d9d9d;
+      font-weight: bold;
+      font-size: clamp(13px, 2vmin, 23px);
+      letter-spacing: 0.06em;
+    }
+
+    #foot {
+      position: fixed; bottom: 1.4vmin; left: 0; right: 0;
+      font-size: clamp(10px, 1.4vmin, 15px); color: #4b4b4b;
+    }
+    #foot a { color: #4b4b4b; text-decoration: none; }
+  </style>
+</head>
+<body data-phase="idle">
+  <div id="top">
+    <div id="count">no one has passed yet today</div>
+    <div id="track"><div id="bar"></div></div>
+
+    <h1 id="phase">READY</h1>
+
+    <div id="qr"></div>
+    <div id="sequence"></div>
+    <div id="hint">Scan the code with your own phone.</div>
+    <div id="actions">
+      <div id="action">START VERIFYING</div>
+      <div id="action2">NO SURVEY</div>
+    </div>
+  </div>
+
+  <div id="foot">
+    <a href="index.html">phone page</a> ·
+    tapping the screen advances the turn
+  </div>
+
+  <script src="terminal.js"></script>
+</body>
+</html>
